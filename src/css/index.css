@@ -41,6 +41,10 @@ body {
   .square.new {
     color:red
   }
+
+  .square.newest {
+    color:rgb(115, 255, 0)
+  }
   
   .square:focus {
     outline: none;
@@ -55,7 +59,7 @@ body {
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    border:2px dashed #f30303
+    border:2px dashed #07ec5f
   }
   
   .game-info {

@@ -10,6 +10,9 @@ const [val] = useState(value)
         if(_.has(val,'new')) {
             return <div className="square new">{Object.values(val)[0]}</div> 
         }
+        if(_.has(val,'newest')) {
+            return <div className="square new">{Object.values(val)[0]}</div> 
+        }
          return <div className="square">{Object.values(val)[0]}</div>
 }
     return renderValue()

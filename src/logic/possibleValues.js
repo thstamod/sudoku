@@ -7,8 +7,10 @@ export default (values, box)=> {
     let column = []
     // correspond to box
     const b = _.compact(box.map(o =>  _.values(o)[0]))
+    console.log(b)
     box.forEach(sq => {
         if(!_.values(sq)[0]){
+            console.log(_.keys(sq)[0])
         const key = _.keys(sq)[0].split('')
        row = _.compact(fillArrays(values,key[0]))
        column = _.compact(fillArrays(values,key[1]))
