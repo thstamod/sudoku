@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect} from "react"
 import Box from "./Box"
 import possibleValues from '../logic/possibleValues'
-import setSingleSulution from '../logic/setSingleSolution'
+import singleSolution from '../logic/setSingleSolution'
 import singleBoxCandidate from '../logic/singleBoxCandidate'
  import _ from 'lodash'
 
@@ -14,19 +15,15 @@ const Board = ({init_values}) => {
 
     const setSingleBoxCandidate = ()=> {
      _.forEach(possibleValuesArr,(b)=>{
-         console.log(b)
         const tobechange =   singleBoxCandidate(b)
         const c= _.findKey(boardvalues,(o)=> {
             if(_.keys(o)[0] === _.keys(tobechange)[0])
               return _.keys(o)[0] === _.keys(tobechange)[0]
          })
          if(c) {
-            boardvalues[c] = tobechange
-            calculatePossibleValues()
-         }
-         else {
-             console.log('set')
-             setlboardvalues(boardvalues)
+            boardvalues[c] = tobechange 
+            calculatePossibleValues()         
+            setlboardvalues([...boardvalues])
          }
         })    
     }
@@ -34,7 +31,6 @@ const Board = ({init_values}) => {
 
 const calculatePossibleValues = () => {
     possibleValuesArr = []
-    console.log('calculate')
     for(let r=0; r<81;r=r+27) {
         for(let box=r;box<9+r;box = box+3) {
             let _squares = []
@@ -47,35 +43,31 @@ const calculatePossibleValues = () => {
 }
 
 
-const ttt = ()=> {
-    console.log('ttt')
+const setSingleSolution = ()=> {
     let tobechange = 1
     while(tobechange) {
-     tobechange= setSingleSulution(possibleValuesArr)
-    console.log(tobechange)
+     tobechange= singleSolution(possibleValuesArr)
     if(tobechange){
     // eslint-disable-next-line no-loop-func
     const c= _.findKey(boardvalues,(o)=> {
         if(_.keys(o)[0] === _.keys(tobechange)[0])
-       console.log(_.keys(o)[0])
           return _.keys(o)[0] === _.keys(tobechange)[0]
      })
      boardvalues[c] = tobechange
-    calculatePossibleValues()
+     calculatePossibleValues()
+     setlboardvalues([...boardvalues])
 }
 }
-console.log(possibleValuesArr)
 }
 
     useEffect(() => {
         calculatePossibleValues()
-        ttt();
+        setSingleSolution();
         setSingleBoxCandidate()
     
     })
 
     const renderBoxes = ()=> {
-        console.log(lboardvalues)
         let _boxes = [];
         for(let r=0; r<81;r=r+27) {
             for(let box=r;box<9+r;box = box+3) {
@@ -89,9 +81,6 @@ console.log(possibleValuesArr)
    
     return _boxes
     }
-
-
-
 
     return renderBoxes()
 }

@@ -16,14 +16,11 @@ export default (possibleValues) => {
             if(t) {
 
        key= _.find(possibleValues, (o) => {
-        //   console.log(possibleValues)
-            console.log(_.values(o)[0])
             return _.values(o)[0].indexOf(t) > -1
         })
 
         key[_.keys(key)[0]] = t
         key.newest = true
-        console.log(key)
         }
         return key
 }
