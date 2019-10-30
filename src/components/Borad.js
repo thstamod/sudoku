@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react"
 import Box from "./Box"
-import possibleValues from '../logic/possibleValues'
+import calculatePossibleValues from '../logic/calculatePossibleValues'
 import singleSolution from '../logic/setSingleSolution'
 import singleBoxCandidate from '../logic/singleBoxCandidate'
  import _ from 'lodash'
@@ -21,25 +21,14 @@ const Board = ({init_values}) => {
          })
          if(c) {
             boardvalues[c] = tobechange 
-            calculatePossibleValues()         
+            possibleValuesArr = calculatePossibleValues(boardvalues)         
             setlboardvalues([...boardvalues])
          }
         })    
     }
 
 
-const calculatePossibleValues = () => {
-    possibleValuesArr = []
-    for(let r=0; r<81;r=r+27) {
-        for(let box=r;box<9+r;box = box+3) {
-            let _squares = []
-            _squares.push(boardvalues[box],boardvalues[box+1],boardvalues[box+2],
-                boardvalues[box+9],boardvalues[box+10],boardvalues[box+11],
-                boardvalues[box+18],boardvalues[box+19],boardvalues[box+20])
-                 possibleValuesArr.push(possibleValues(boardvalues,_squares))           
-        }           
-    }    
-}
+
 
 
 const setSingleSolution = ()=> {
@@ -53,16 +42,16 @@ const setSingleSolution = ()=> {
           return _.keys(o)[0] === _.keys(tobechange)[0]
      })
      boardvalues[c] = tobechange
-     calculatePossibleValues()
+     possibleValuesArr = calculatePossibleValues(boardvalues) 
      setlboardvalues([...boardvalues])
 }
 }
 }
 
     useEffect(() => {
-        calculatePossibleValues()
+        possibleValuesArr = calculatePossibleValues(boardvalues)
         setSingleSolution();
-        setSingleBoxCandidate()
+       // setSingleBoxCandidate()
     
     })
 
