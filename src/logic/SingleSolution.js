@@ -12,6 +12,6 @@ if(p) {
 p[_.keys(p)[0]] = _.values(p)[0][0]
 p.new = true
 }
-console.log(p)
 return p
 }
+

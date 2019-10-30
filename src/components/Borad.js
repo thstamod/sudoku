@@ -1,59 +1,10 @@
 import React, {useState, useEffect} from "react"
 import Box from "./Box"
-import calculatePossibleValues from '../logic/calculatePossibleValues'
-import singleSolution from '../logic/setSingleSolution'
-import singleBoxCandidate from '../logic/singleBoxCandidate'
- import _ from 'lodash'
+import algo from '../logic/algorythm'
+
 
 const Board = ({init_values}) => {
-    const boardvalues =init_values
-    const [lboardvalues, setlboardvalues] = useState(init_values)
-    let possibleValuesArr = [];
-
-
-
-    const setSingleBoxCandidate = ()=> {
-     _.forEach(possibleValuesArr,(b)=>{
-        const tobechange =   singleBoxCandidate(b)
-        const c= _.findKey(boardvalues,(o)=> {
-            if(_.keys(o)[0] === _.keys(tobechange)[0])
-              return _.keys(o)[0] === _.keys(tobechange)[0]
-         })
-         if(c) {
-            boardvalues[c] = tobechange 
-            possibleValuesArr = calculatePossibleValues(boardvalues)         
-            setlboardvalues([...boardvalues])
-         }
-        })    
-    }
-
-
-
-
-
-const setSingleSolution = ()=> {
-    let tobechange = 1
-    while(tobechange) {
-     tobechange= singleSolution(possibleValuesArr)
-    if(tobechange){
-    // eslint-disable-next-line no-loop-func
-    const c= _.findKey(boardvalues,(o)=> {
-        if(_.keys(o)[0] === _.keys(tobechange)[0])
-          return _.keys(o)[0] === _.keys(tobechange)[0]
-     })
-     boardvalues[c] = tobechange
-     possibleValuesArr = calculatePossibleValues(boardvalues) 
-     setlboardvalues([...boardvalues])
-}
-}
-}
-
-    useEffect(() => {
-        possibleValuesArr = calculatePossibleValues(boardvalues)
-        setSingleSolution();
-       // setSingleBoxCandidate()
-    
-    })
+    const [lboardvalues] = useState(init_values)
 
     const renderBoxes = ()=> {
         let _boxes = [];
