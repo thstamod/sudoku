@@ -44,12 +44,14 @@ const c= _.findKey(boardvalues,(o)=> {
 
 
 
-
-
-    setSingleSolution();
-    setSingleBoxCandidate();
-
-
+    let prev = null
+    while(!_.isEqual(boardvalues,prev)){
+        prev = _.cloneDeep(boardvalues)
+        setSingleSolution();
+        setSingleBoxCandidate();
+    }
+    
+   
 
 
 
