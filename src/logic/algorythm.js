@@ -1,17 +1,18 @@
 import calculatePossibleValues from './calculatePossibleValues'
 import singleBoxCandidate from './singleBoxCandidate'
 import singleSolution from './SingleSolution'
+import getCandidateWithLessPos from './getCandidateWithLessPos'
+import gameSuccess from './gameSuccess'
+import unsolvedPathGame from './unsolvedPathGame'
 import init from '../data/initValues'
 import _ from 'lodash'
 let boardvalues = init
 let possibleValuesArr = [];
 possibleValuesArr = calculatePossibleValues(boardvalues)
-console.log(possibleValuesArr)
+
 
 
 const setSingleSolution = () => {
-
-
 let tobechange = 1
 while(tobechange) {
  tobechange= singleSolution(calculatePossibleValues(boardvalues))
@@ -50,9 +51,12 @@ const c= _.findKey(boardvalues,(o)=> {
         setSingleSolution();
         setSingleBoxCandidate();
     }
-    
+   // console.log(possibleValuesArr)
    
-
+   //const candidate = getCandidateWithLessPos(possibleValuesArr)
+  
+   console.log('game solved',gameSuccess(boardvalues))
+   unsolvedPathGame(_.flatten(possibleValuesArr))
 
 
 
