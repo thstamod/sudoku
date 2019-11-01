@@ -44,20 +44,48 @@ const c= _.findKey(boardvalues,(o)=> {
     }
 
 
-
-    let prev = null
-    while(!_.isEqual(boardvalues,prev)){
-        prev = _.cloneDeep(boardvalues)
-        setSingleSolution();
-        setSingleBoxCandidate();
+    const run = () => {
+        let prev = null
+        while(!_.isEqual(boardvalues,prev)){
+            prev = _.cloneDeep(boardvalues)
+            setSingleSolution();
+            setSingleBoxCandidate();
+        }
     }
-   // console.log(possibleValuesArr)
    
-   //const candidate = getCandidateWithLessPos(possibleValuesArr)
-  
+   run();
+
+
+
+   const candidates = getCandidateWithLessPos(possibleValuesArr)
+    //console.log(candidates)
+    candidates.forEach((elem) => {
+        _.values(elem)[0].forEach(v => {
+
+            const c= _.findKey(boardvalues,(o)=> {
+                if(_.keys(o)[0] === _.keys(elem)[0])
+                  return _.keys(o)[0] === _.keys(elem)[0]
+             })
+            if(elem){
+                    let r = _.create(elem)
+                    r[_.keys(elem)[0]] = v
+                    r.last = true
+                 console.log(r)
+                 boardvalues[c] = r
+             possibleValuesArr = calculatePossibleValues(boardvalues) 
+                run()
+                }
+                if(unsolvedPathGame(_.flatten(possibleValuesArr))) {
+                    let r = _.create(elem)
+                    r[_.keys(elem)[0]] = null
+                    boardvalues[c] = r
+                    possibleValuesArr = calculatePossibleValues(boardvalues) 
+                }
+               
+        })
+    })
+
    console.log('game solved',gameSuccess(boardvalues))
-   unsolvedPathGame(_.flatten(possibleValuesArr))
-
-
+   console.log('game is unsolved',unsolvedPathGame(_.flatten(possibleValuesArr)))
 
 export default boardvalues

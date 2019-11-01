@@ -10,6 +10,9 @@ const Square = ({value}) => {
         if(_.has(value,'newest')) {
             return <div className="square newest">{Object.values(value)[0]}</div> 
         }
+        if(_.has(value,'last')) {
+            return <div className="square last">{Object.values(value)[0]}</div> 
+        }
          return <div className="square">{Object.values(value)[0]}</div>
 }
     return renderValue()

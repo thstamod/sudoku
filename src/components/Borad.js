@@ -1,5 +1,6 @@
 import React, {useState} from "react"
 import Box from "./Box"
+// eslint-disable-next-line no-unused-vars
 import algo from '../logic/algorythm'
 
 

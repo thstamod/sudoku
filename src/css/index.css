@@ -43,9 +43,13 @@ body {
   }
 
   .square.newest {
-    color:rgb(115, 255, 0)
+    color:rgb(175, 255, 110)
   }
   
+  .square.last {
+    color:rgb(80, 145, 199)
+  }
+
   .square:focus {
     outline: none;
   }
