@@ -8,6 +8,7 @@ import init from '../data/initValues'
 import _ from 'lodash'
 let boardvalues = init
 let possibleValuesArr = [];
+let searchPaths = []; 
 possibleValuesArr = calculatePossibleValues(boardvalues)
 
 
@@ -52,38 +53,66 @@ const c= _.findKey(boardvalues,(o)=> {
             setSingleBoxCandidate();
         }
     }
-   
    run();
 
+const findKey = (elem) => {
+    const c= _.findKey(boardvalues,(o)=> {
+        if(_.keys(o)[0] === _.keys(elem)[0])
+          return _.keys(o)[0] === _.keys(elem)[0]
+     })
+     return c
+}
+
+const search = ()=> {
+    tryCandidates()
+  //  run()
 
 
-   const candidates = getCandidateWithLessPos(possibleValuesArr)
-    //console.log(candidates)
-    candidates.forEach((elem) => {
-        _.values(elem)[0].forEach(v => {
+}
+let prev = _.cloneDeep(boardvalues);
+    const tryCandidates = () => {
+            const repl = _.cloneDeep(possibleValuesArr)
+        if (gameSuccess(boardvalues)) {
+            console.log('game success')
+            return
+        }
+        getCandidateWithLessPos(repl).forEach((elem) => {
+            debugger
+            _.values(elem)[0].forEach(v => {
+                debugger
+                if(elem){
+                    debugger
+                        let r = _.cloneDeep(elem)
+                        r[_.keys(elem)[0]] = v
+                        r.last = true
+                     boardvalues[findKey(elem)] = r
+                 possibleValuesArr = calculatePossibleValues(boardvalues) 
+                    }
+                        run()
 
-            const c= _.findKey(boardvalues,(o)=> {
-                if(_.keys(o)[0] === _.keys(elem)[0])
-                  return _.keys(o)[0] === _.keys(elem)[0]
-             })
-            if(elem){
-                    let r = _.create(elem)
-                    r[_.keys(elem)[0]] = v
-                    r.last = true
-                 console.log(r)
-                 boardvalues[c] = r
-             possibleValuesArr = calculatePossibleValues(boardvalues) 
-                run()
-                }
-                if(unsolvedPathGame(_.flatten(possibleValuesArr))) {
-                    let r = _.create(elem)
-                    r[_.keys(elem)[0]] = null
-                    boardvalues[c] = r
-                    possibleValuesArr = calculatePossibleValues(boardvalues) 
-                }
-               
+                        if(!gameSuccess(boardvalues) && !unsolvedPathGame(_.flatten(possibleValuesArr))) {
+                            debugger
+                            tryCandidates();
+                        }
+
+                    if(unsolvedPathGame(_.flatten(possibleValuesArr))) {
+                        debugger
+                        searchPaths.push(_.cloneDeep(boardvalues))
+                        let r = _.cloneDeep(elem)
+                        r[_.keys(elem)[0]] = null
+                        boardvalues[findKey(elem)] = r
+                        boardvalues = prev;
+                        possibleValuesArr = calculatePossibleValues(boardvalues) 
+                    }
+                   
+            })
         })
-    })
+    }
+   
+search();
+
+//console.log('searchPaths',searchPaths)
+console.log('possble values',possibleValuesArr)
 
    console.log('game solved',gameSuccess(boardvalues))
    console.log('game is unsolved',unsolvedPathGame(_.flatten(possibleValuesArr)))
