@@ -1,11 +1,15 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import Box from "./Box"
 // eslint-disable-next-line no-unused-vars
 import algo from '../logic/algorythm'
 
 
 const Board = ({init_values}) => {
-    const [lboardvalues] = useState(init_values)
+    const [lboardvalues, setlboardvalues] = useState(init_values)
+  
+    useEffect(() => {
+        setlboardvalues(algo)
+    }, [])
 
     const renderBoxes = ()=> {
         let _boxes = [];

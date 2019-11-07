@@ -6,6 +6,7 @@ import gameSuccess from './gameSuccess'
 import unsolvedPathGame from './unsolvedPathGame'
 import init from '../data/initValues'
 import _ from 'lodash'
+//let boardvalues = _.cloneDeep(init)
 let boardvalues = init
 let possibleValuesArr = [];
 let searchPaths = []; 
@@ -65,23 +66,21 @@ const findKey = (elem) => {
 
 const search = ()=> {
     tryCandidates()
-  //  run()
-
-
 }
-let prev = _.cloneDeep(boardvalues);
+
     const tryCandidates = () => {
-            const repl = _.cloneDeep(possibleValuesArr)
+        let prev = _.cloneDeep(boardvalues);
+    const repl = _.cloneDeep(possibleValuesArr)
         if (gameSuccess(boardvalues)) {
             console.log('game success')
             return
         }
         getCandidateWithLessPos(repl).forEach((elem) => {
-            debugger
+           // debugger
             _.values(elem)[0].forEach(v => {
-                debugger
+              //  debugger
                 if(elem){
-                    debugger
+                 //   debugger
                         let r = _.cloneDeep(elem)
                         r[_.keys(elem)[0]] = v
                         r.last = true
@@ -90,13 +89,16 @@ let prev = _.cloneDeep(boardvalues);
                     }
                         run()
 
-                        if(!gameSuccess(boardvalues) && !unsolvedPathGame(_.flatten(possibleValuesArr))) {
-                            debugger
-                            tryCandidates();
-                        }
+                        if(!gameSuccess(boardvalues)) {
+                            if(!unsolvedPathGame(_.flatten(possibleValuesArr)))
+                           // debugger
+                            //possibleValuesArr = calculatePossibleValues(boardvalues) 
+                            //tryCandidates();
+                            console.log('recall')
+                        }else {return}
 
                     if(unsolvedPathGame(_.flatten(possibleValuesArr))) {
-                        debugger
+                       // debugger
                         searchPaths.push(_.cloneDeep(boardvalues))
                         let r = _.cloneDeep(elem)
                         r[_.keys(elem)[0]] = null
@@ -113,6 +115,7 @@ search();
 
 //console.log('searchPaths',searchPaths)
 console.log('possble values',possibleValuesArr)
+//console.log('board',boardvalues)
 
    console.log('game solved',gameSuccess(boardvalues))
    console.log('game is unsolved',unsolvedPathGame(_.flatten(possibleValuesArr)))
