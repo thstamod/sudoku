@@ -65,59 +65,61 @@ const findKey = (elem) => {
 }
 
 const search = ()=> {
-    tryCandidates()
+   boardvalues = tryCandidates(_.cloneDeep(boardvalues),_.cloneDeep(possibleValuesArr))
+   console.log(boardvalues)
 }
 
-    const tryCandidates = () => {
-        let prev = _.cloneDeep(boardvalues);
-    const repl = _.cloneDeep(possibleValuesArr)
-        if (gameSuccess(boardvalues)) {
+    const tryCandidates = (boardvaluess,possibleValuesArrr) => {
+        let prev = _.cloneDeep(boardvaluess);
+    const repl = _.cloneDeep(possibleValuesArrr)
+        if (gameSuccess(boardvaluess)) {
             console.log('game success')
             return
         }
-        getCandidateWithLessPos(repl).forEach((elem) => {
-           // debugger
-            _.values(elem)[0].forEach(v => {
-              //  debugger
+        getCandidateWithLessPos(repl).some((elem) => {
+            _.values(elem)[0].some(v => {
                 if(elem){
-                 //   debugger
                         let r = _.cloneDeep(elem)
                         r[_.keys(elem)[0]] = v
                         r.last = true
-                     boardvalues[findKey(elem)] = r
-                 possibleValuesArr = calculatePossibleValues(boardvalues) 
+                        boardvaluess[findKey(elem)] = r
+                        possibleValuesArrr = calculatePossibleValues(boardvaluess) 
                     }
                         run()
-
-                        if(!gameSuccess(boardvalues)) {
-                            if(!unsolvedPathGame(_.flatten(possibleValuesArr)))
-                           // debugger
-                            //possibleValuesArr = calculatePossibleValues(boardvalues) 
-                            //tryCandidates();
-                            console.log('recall')
-                        }else {return}
-
-                    if(unsolvedPathGame(_.flatten(possibleValuesArr))) {
-                       // debugger
-                        searchPaths.push(_.cloneDeep(boardvalues))
-                        let r = _.cloneDeep(elem)
-                        r[_.keys(elem)[0]] = null
-                        boardvalues[findKey(elem)] = r
-                        boardvalues = prev;
-                        possibleValuesArr = calculatePossibleValues(boardvalues) 
+                        if(!gameSuccess(boardvaluess)) {
+                            if(!unsolvedPathGame(_.flatten(possibleValuesArrr))){
+                                let tmp = tryCandidates(_.cloneDeep(boardvaluess),_.cloneDeep(possibleValuesArrr))
+                                if(tmp) {
+                                    boardvaluess = tmp
+                                    possibleValuesArrr = calculatePossibleValues(boardvaluess) 
+                                    if(_.isEqual(boardvalues,prev)) {
+                                        console.log('TEST')
+                                    }
+                                }
+                               
+                        }
+                        }
+                    if(unsolvedPathGame(_.flatten(possibleValuesArrr))) {
+                        searchPaths.push(_.cloneDeep(boardvaluess))
+                        boardvaluess = prev;
+                        possibleValuesArrr = calculatePossibleValues(boardvaluess) 
+                        return 0
                     }
-                   
+                 return gameSuccess(boardvaluess)
             })
+           return gameSuccess(boardvaluess)
         })
+        return gameSuccess(boardvaluess)? boardvaluess : null
     }
    
 search();
 
 //console.log('searchPaths',searchPaths)
-console.log('possble values',possibleValuesArr)
+//console.log('possble values',possibleValuesArr)
 //console.log('board',boardvalues)
 
    console.log('game solved',gameSuccess(boardvalues))
    console.log('game is unsolved',unsolvedPathGame(_.flatten(possibleValuesArr)))
 
 export default boardvalues
+
