@@ -47,6 +47,7 @@ const c= _.findKey(boardvalues,(o)=> {
 
 
     const run = () => {
+        
         let prev = null
         while(!_.isEqual(boardvalues,prev)){
             prev = _.cloneDeep(boardvalues)
@@ -54,6 +55,7 @@ const c= _.findKey(boardvalues,(o)=> {
             setSingleBoxCandidate();
         }
     }
+    var t0 = performance.now();
    run();
 
 const findKey = (elem) => {
@@ -66,7 +68,6 @@ const findKey = (elem) => {
 
 const search = ()=> {
    tryCandidates()
-   console.log(boardvalues)
 }
 
     const tryCandidates = () => {
@@ -74,15 +75,12 @@ const search = ()=> {
         let prev = _.cloneDeep(boardvalues);
         const repl = _.cloneDeep(possibleValuesArr)
         const tmp2 = getCandidateWithLessPos(repl) 
-       // console.log(tmp2)
-     //  debugger
         for ( let elem of tmp2){
-            if(gameSuccess(boardvalues)) {console.log('success'); break} 
-            console.log(elem)
+            if(gameSuccess(boardvalues)) {break} 
             // eslint-disable-next-line no-loop-func
             const tmp3 = _.values(elem)[0]
             for( let v of tmp3){
-                if(gameSuccess(boardvalues)) {console.log('success'); break}
+                if(gameSuccess(boardvalues)) {break}
                 if(elem){
                         let r = _.cloneDeep(elem)
                         r[_.keys(elem)[0]] = v
@@ -102,7 +100,6 @@ const search = ()=> {
                         searchPaths.push(_.cloneDeep(boardvalues))
                         boardvalues = _.cloneDeep(prev);
                         possibleValuesArr = calculatePossibleValues(boardvalues) 
-                       // return 0
                     }
                    
             }
@@ -113,8 +110,9 @@ const search = ()=> {
     }
    
 search();
-
+var t1 = performance.now();
+console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.");
    console.log('game solved',gameSuccess(boardvalues))
-   console.log('game is unsolved',unsolvedPathGame(_.flatten(possibleValuesArr)))
+
 
 export default boardvalues
