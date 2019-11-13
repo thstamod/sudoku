@@ -1,14 +1,28 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import Box from "./Box";
+import _ from "lodash";
 // eslint-disable-next-line no-unused-vars
 import algo from "../logic/algorythm";
 
 const Board = ({ init_values }) => {
   const [lboardvalues, setlboardvalues] = useState(init_values);
 
+  const checkIfInit = val => {
+    let a = [];
+    for (let i = 0; i < init_values.length; i++) {
+      let q = _.cloneDeep(val[i]);
+      if (!_.isEqual(init_values[i], val[i])) {
+        q.new = true;
+      }
+      a.push(q);
+    }
+    setlboardvalues(a);
+  };
+
   useEffect(() => {
-    setlboardvalues(algo);
-  }, []);
+    checkIfInit(algo);
+  }, [algo]);
 
   const renderBoxes = () => {
     let _boxes = [];

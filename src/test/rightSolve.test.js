@@ -2,10 +2,10 @@ import algo from "../logic/algorythm";
 import _ from "lodash";
 
 const solution = JSON.parse(
-  '[{"a1":5,"new":true},{"a2":9},{"a3":8,"new":true},{"a4":1},{"a5":7,"new":true},{"a6":2},{"a7":6,"new":true},{"a8":4,"new":true},{"a9":3,"new":true},{"b1":7},{"b2":3,"new":true},{"b3":2,"new":true},{"b4":4,"new":true},{"b5":6},{"b6":8,"new":true},{"b7":1},{"b8":5,"newest":true},{"b9":9,"new":true},{"c1":4},{"c2":6,"newest":true},{"c3":1,"new":true},{"c4":9,"new":true},{"c5":5,"new":true},{"c6":3},{"c7":7,"newest":true},{"c8":8,"last":true},{"c9":2,"newest":true},{"d1":3},{"d2":2,"newest":true},{"d3":6},{"d4":5,"new":true},{"d5":9},{"d6":4,"new":true},{"d7":8},{"d8":7,"new":true},{"d9":1,"new":true},{"e1":9,"last":true},{"e2":1,"new":true},{"e3":5,"new":true},{"e4":6,"newest":true},{"e5":8,"newest":true},{"e6":7,"newest":true},{"e7":3,"new":true},{"e8":2},{"e9":4},{"f1":8,"new":true},{"f2":7,"new":true},{"f3":4,"new":true},{"f4":3,"newest":true},{"f5":2},{"f6":1},{"f7":9},{"f8":6,"new":true},{"f9":5},{"g1":2,"newest":true},{"g2":4,"new":true},{"g3":9,"new":true},{"g4":8,"newest":true},{"g5":1,"new":true},{"g6":6,"newest":true},{"g7":5,"new":true},{"g8":3},{"g9":7},{"h1":6},{"h2":5,"new":true},{"h3":3,"newest":true},{"h4":7},{"h5":4,"new":true},{"h6":9,"new":true},{"h7":2,"newest":true},{"h8":1,"new":true},{"h9":8,"new":true},{"i1":1,"new":true},{"i2":8},{"i3":7,"newest":true},{"i4":2,"new":true},{"i5":3,"newest":true},{"i6":5,"new":true},{"i7":4,"new":true},{"i8":9,"new":true},{"i9":6,"newest":true}]'
+  '[{"a1":5},{"a2":9},{"a3":8},{"a4":1},{"a5":7},{"a6":2},{"a7":6},{"a8":4},{"a9":3},{"b1":7},{"b2":3},{"b3":2},{"b4":4},{"b5":6},{"b6":8},{"b7":1},{"b8":5},{"b9":9},{"c1":4},{"c2":6},{"c3":1},{"c4":9},{"c5":5},{"c6":3},{"c7":7},{"c8":8},{"c9":2},{"d1":3},{"d2":2},{"d3":6},{"d4":5},{"d5":9},{"d6":4},{"d7":8},{"d8":7},{"d9":1},{"e1":9},{"e2":1},{"e3":5},{"e4":6},{"e5":8},{"e6":7},{"e7":3},{"e8":2},{"e9":4},{"f1":8},{"f2":7},{"f3":4},{"f4":3},{"f5":2},{"f6":1},{"f7":9},{"f8":6},{"f9":5},{"g1":2},{"g2":4},{"g3":9},{"g4":8},{"g5":1},{"g6":6},{"g7":5},{"g8":3},{"g9":7},{"h1":6},{"h2":5},{"h3":3},{"h4":7},{"h5":4},{"h6":9},{"h7":2},{"h8":1},{"h9":8},{"i1":1},{"i2":8},{"i3":7},{"i4":2},{"i5":3},{"i6":5},{"i7":4},{"i8":9},{"i9":6}]'
 );
 
 test("simple test", () => {
   console.log("lodash equal", _.isEqual(algo, solution));
-  expect(algo()).toEqual(solution);
+  expect(algo).toEqual(solution);
 });

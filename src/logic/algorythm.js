@@ -7,7 +7,7 @@ import unsolvedPathGame from "./unsolvedPathGame";
 import init from "../data/initValues";
 import _ from "lodash";
 let boardvalues = _.cloneDeep(init);
-let searchPaths = [];
+//let searchPaths = [];
 let possibleValuesArr = calculatePossibleValues(boardvalues);
 
 const findKey = elem => {
@@ -60,23 +60,23 @@ const tryCandidates = () => {
   if (gameSuccess(boardvalues)) {
     return true;
   }
-  let prev = _.cloneDeep(boardvalues);
-  const repl = _.cloneDeep(possibleValuesArr);
-  const tmp2 = getCandidateWithLessPos(repl);
-  for (let elem of tmp2) {
+  const prev = _.cloneDeep(boardvalues);
+  const replPosible = _.cloneDeep(possibleValuesArr);
+  const candidatesByOrder = getCandidateWithLessPos(replPosible);
+  for (let elem of candidatesByOrder) {
     if (gameSuccess(boardvalues)) {
       break;
     }
     // eslint-disable-next-line no-loop-func
-    const tmp3 = _.values(elem)[0];
-    for (let v of tmp3) {
+    const arrElem = _.values(elem)[0];
+    for (let v of arrElem) {
       if (gameSuccess(boardvalues)) {
         break;
       }
       if (elem) {
         let r = _.cloneDeep(elem);
         r[_.keys(elem)[0]] = v;
-        r.last = true;
+        //r.new = true;
         boardvalues[findKey(elem)] = r;
         possibleValuesArr = calculatePossibleValues(boardvalues);
       }
@@ -84,12 +84,12 @@ const tryCandidates = () => {
       possibleValuesArr = calculatePossibleValues(boardvalues);
       if (!gameSuccess(boardvalues)) {
         if (!unsolvedPathGame(_.flatten(possibleValuesArr))) {
-          tryCandidates();
+          tryCandidates(boardvalues, possibleValuesArr);
           possibleValuesArr = calculatePossibleValues(boardvalues);
         }
       }
       if (unsolvedPathGame(_.flatten(possibleValuesArr))) {
-        searchPaths.push(_.cloneDeep(boardvalues));
+        //searchPaths.push(_.cloneDeep(boardvalues));
         boardvalues = _.cloneDeep(prev);
         possibleValuesArr = calculatePossibleValues(boardvalues);
       }
@@ -99,10 +99,6 @@ const tryCandidates = () => {
 
 search();
 var t1 = performance.now();
-console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.");
-console.log("game solved", gameSuccess(boardvalues));
-//console.log(boardvalues);
-
-//const exportResults = () => (gameSuccess(boardvalues) ? boardvalues : null);
+console.log("Solving time " + (t1 - t0) + " milliseconds.");
 
 export default boardvalues;
